@@ -75,11 +75,11 @@ func parseArgs() error {
 	}
 
 	if opts.Recover == true && opts.OutputFolderPath == "" {
-		return fmt.Errorf("You cannot use recover without specifying a folder -o <folder_name> containing data, password, database and user.")
+		return fmt.Errorf("You cannot use recover without specifying a folder -o <folder_name> containing data.")
 	}
 
 	if opts.Recover == false && opts.Seed == false && opts.OutputFolderPath == "" {
-		return fmt.Errorf("You need to specify database adress,user,password,name and folder in which you want to backup your data.")
+		return fmt.Errorf("You need to specify folder in which you want to backup your data.")
 
 	}
 
