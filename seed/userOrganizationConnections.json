@@ -1,0 +1,26 @@
+[
+ {
+  "Connection_id": 1,
+  "Is_manager": true,
+  "User_uuid": "123",
+  "Organization_uuid": "123"
+ },
+ {
+  "Connection_id": 2,
+  "Is_manager": false,
+  "User_uuid": "1234",
+  "Organization_uuid": "123"
+ },
+ {
+  "Connection_id": 3,
+  "Is_manager": true,
+  "User_uuid": "12345",
+  "Organization_uuid": "1234"
+ },
+ {
+  "Connection_id": 4,
+  "Is_manager": false,
+  "User_uuid": "123456",
+  "Organization_uuid": "12345"
+ }
+]

@@ -1,0 +1,38 @@
+[
+ {
+  "First_name": "Ivan",
+  "Last_name": "Ivanov",
+  "User_uuid": "123",
+  "Pwd": "123",
+  "Session_token": "st123",
+  "Email": "ivan@abv.bg",
+  "Is_admin": false
+ },
+ {
+  "First_name": "Andrei",
+  "Last_name": "Andreevich",
+  "User_uuid": "1234",
+  "Pwd": "1234",
+  "Session_token": "st1234",
+  "Email": "andrei@abv.bg",
+  "Is_admin": false
+ },
+ {
+  "First_name": "Mihail",
+  "Last_name": "Mihailov",
+  "User_uuid": "12345",
+  "Pwd": "12345",
+  "Session_token": "st12345",
+  "Email": "mihail@abv.bg",
+  "Is_admin": true
+ },
+ {
+  "First_name": "Spas",
+  "Last_name": "Spasov",
+  "User_uuid": "123456",
+  "Pwd": "123456",
+  "Session_token": "st123456",
+  "Email": "spas@abv.bg",
+  "Is_admin": true
+ }
+]
