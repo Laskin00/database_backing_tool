@@ -11,7 +11,9 @@
 ### Backup
     You can backup the data currently on the database by using:
      ./database_backup -a <database_adress> -u <database_user> -p <password> -d <database_name> -o <folder_containing_data>
-    All the data (users,organizations,userOrganizationConnections) will be writen in separate files in the specified folder
+     -h <sshhost> -l <sshuser> -m <sshpwd> -n <sshport> -k <sshdirectory>
+    All the data (users,organizations,userOrganizationConnections) will be writen in separate files in the specified folder(folder_containing_data).
+    Aditionally all the files will be saved on the remote server specified by sshhost and sshport in the sshdirectory.
 
 ### Recover
     You can recover the database from the previously backed-up data using:
