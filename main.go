@@ -72,11 +72,11 @@ func parseArgs() error {
 		OutputFolderPath       string `short:"o" long:"output_folder_path" description:"The location of the folder to be used for exit data"`
 		Recover                bool   `short:"r" long:"recover" description:"Gets the data from the specified backup folder and inserts it in the database"`
 		Seed                   bool   `short:"s" long:"seed" description:"Gets the data from <current_directory>/seed and inserts it in the database"`
-		SshServerHost          string `short:"h" long:"sshhost"  required:"true"`
-		SshServerUser          string `short:"l"  long:"sshuser" required:"true"`
-		SshServerPassword      string `short:"m"  long:"sshpwd" required:"true"`
-		SshServerPort          int    `short:"n"  long:"sshport" required:"true"`
-		SshServerDirectoryPath string `short:"k"  long:"sshdirectory" required:"true"`
+		SshServerHost          string `short:"h" long:"sshhost"`
+		SshServerUser          string `short:"l"  long:"sshuser"`
+		SshServerPassword      string `short:"m"  long:"sshpwd"`
+		SshServerPort          int    `short:"n"  long:"sshport" default:"-1"`
+		SshServerDirectoryPath string `short:"k"  long:"sshdirectory"`
 	}
 
 	parser := flags.NewParser(&opts, flags.None)
@@ -91,8 +91,22 @@ func parseArgs() error {
 		return fmt.Errorf("You cannot use recover without specifying a folder -o <folder_name> containing data.")
 	}
 
-	if opts.Recover == false && opts.Seed == false && opts.OutputFolderPath == "" {
-		return fmt.Errorf("You need to specify folder in which you want to backup your data.")
+	if opts.Recover == false && opts.Seed == false {
+		switch {
+		case opts.OutputFolderPath == "":
+			return fmt.Errorf("You need to specify folder in which you want to backup your data.")
+		case opts.SshServerDirectoryPath == "":
+			return fmt.Errorf("You need to specify folder in which you want to backup your data on the remote server.")
+		case opts.SshServerHost == "":
+			return fmt.Errorf("You need to specify SSH server host.")
+		case opts.SshServerPort == -1:
+			return fmt.Errorf("You need to specify SSH server port.")
+		case opts.SshServerUser == "":
+			return fmt.Errorf("You need to specify SSH user name.")
+		case opts.SshServerPassword == "":
+			return fmt.Errorf("You need to specify SSH user password.")
+
+		}
 
 	}
 
