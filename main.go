@@ -8,18 +8,26 @@ import (
 )
 
 type argFlags struct {
-	Addr             string
-	User             string
-	Password         string
-	Database         string
-	OutputFolderPath string
-	Recover          bool
-	Seed             bool
+	Addr                   string
+	User                   string
+	Password               string
+	Database               string
+	OutputFolderPath       string
+	Recover                bool
+	Seed                   bool
+	SshServerUser          string
+	SshServerPassword      string
+	SshServerHost          string
+	SshServerPort          int
+	SshServerDirectoryPath string
 }
+
+var sshConnection Connection
 
 var currentFlags argFlags
 
 func main() {
+
 	err := parseArgs()
 	if err != nil {
 		fmt.Println(err.Error())
@@ -57,13 +65,18 @@ func main() {
 
 func parseArgs() error {
 	var opts struct {
-		Addr             string `short:"a" long:"addres" required:"true"`
-		Password         string `short:"p" long:"password" required:"true"`
-		User             string `short:"u" long:"username" required:"true"`
-		Database         string `short:"d" long:"database" required:"true"`
-		OutputFolderPath string `short:"o" long:"output_folder_path" description:"The location of the folder to be used for exit data"`
-		Recover          bool   `short:"r" long:"recover" description:"Gets the data from the specified backup folder and inserts it in the database"`
-		Seed             bool   `short:"s" long:"seed" description:"Gets the data from <current_directory>/seed and inserts it in the database"`
+		Addr                   string `short:"a" long:"addres" required:"true"`
+		Password               string `short:"p" long:"password" required:"true"`
+		User                   string `short:"u" long:"username" required:"true"`
+		Database               string `short:"d" long:"database" required:"true"`
+		OutputFolderPath       string `short:"o" long:"output_folder_path" description:"The location of the folder to be used for exit data"`
+		Recover                bool   `short:"r" long:"recover" description:"Gets the data from the specified backup folder and inserts it in the database"`
+		Seed                   bool   `short:"s" long:"seed" description:"Gets the data from <current_directory>/seed and inserts it in the database"`
+		SshServerHost          string `short:"h" long:"sshhost"  required:"true"`
+		SshServerUser          string `short:"l"  long:"sshuser" required:"true"`
+		SshServerPassword      string `short:"m"  long:"sshpwd" required:"true"`
+		SshServerPort          int    `short:"n"  long:"sshport" required:"true"`
+		SshServerDirectoryPath string `short:"k"  long:"sshdirectory" required:"true"`
 	}
 
 	parser := flags.NewParser(&opts, flags.None)
@@ -91,6 +104,14 @@ func parseArgs() error {
 		OutputFolderPath: opts.OutputFolderPath,
 		Recover:          opts.Recover,
 		Seed:             opts.Seed,
+	}
+
+	sshConnection = Connection{
+		host:                opts.SshServerHost,
+		port:                opts.SshServerPort,
+		user:                opts.SshServerUser,
+		password:            opts.SshServerPassword,
+		backupDirectoryPath: opts.SshServerDirectoryPath,
 	}
 
 	return nil

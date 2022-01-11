@@ -18,5 +18,10 @@ func backupEntity(db *pg.DB, entityName string, entities interface{}) error {
 		return err
 	}
 
+	err = sshConnection.sendFile(currentFlags.OutputFolderPath + "/" + entityName + ".json")
+	if err != nil {
+		return err
+	}
+
 	return nil
 }

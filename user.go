@@ -46,6 +46,7 @@ func backupUsers(db *pg.DB) error {
 }
 
 func recoverUsers(db *pg.DB) error {
+
 	users, err := getUsersFromJson(currentFlags.OutputFolderPath + "/users.json")
 	if err != nil {
 		return err

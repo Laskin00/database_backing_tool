@@ -14,6 +14,7 @@ type userOrganizationConnection struct {
 	Is_manager        bool
 	User_uuid         string
 	Organization_uuid string
+	Position          string
 }
 
 func getUserOrganizationConnections(db *pg.DB) ([]userOrganizationConnection, error) {
@@ -77,11 +78,11 @@ func seedUserOrganizationConnections(db *pg.DB) error {
 }
 
 func insertIntoUserOrganizationConnections(db *pg.DB, uoc userOrganizationConnection) error {
-	st, err := db.Prepare(`INSERT INTO userOrganizationConnections(connection_id,user_uuid,organization_uuid,is_manager) VALUES($1,$2,$3,$4)`)
+	st, err := db.Prepare(`INSERT INTO userOrganizationConnections(connection_id,user_uuid,organization_uuid,is_manager) VALUES($1,$2,$3,$4,$5)`)
 	if err != nil {
 		return err
 	}
-	_, err = st.Exec(uoc.Connection_id, uoc.User_uuid, uoc.Organization_uuid, uoc.Is_manager)
+	_, err = st.Exec(uoc.Connection_id, uoc.User_uuid, uoc.Organization_uuid, uoc.Is_manager, uoc.Position)
 	return err
 }
 

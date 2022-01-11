@@ -10,7 +10,11 @@ import (
 )
 
 type organization struct {
-	Organization_uuid string
+	Organization_uuid      string
+	Name                   string
+	Type                   string
+	Invite_token           string
+	Moderator_invite_token string
 }
 
 func getOrganizations(db *pg.DB) ([]organization, error) {
@@ -74,11 +78,11 @@ func seedOrganizations(db *pg.DB) error {
 }
 
 func insertIntoOrganizations(db *pg.DB, o organization) error {
-	st, err := db.Prepare(`INSERT INTO organizations(organization_uuid) VALUES($1)`)
+	st, err := db.Prepare(`INSERT INTO organizations(organization_uuid,name,invite_token,moderator_invite_token,type) VALUES($1,$2,$3,$4,$5)`)
 	if err != nil {
 		return err
 	}
-	_, err = st.Exec(o.Organization_uuid)
+	_, err = st.Exec(o.Organization_uuid, o.Name, o.Invite_token, o.Moderator_invite_token, o.Type)
 	return err
 }
 
